@@ -1,0 +1,3 @@
+package applicationProperties
+
+const MAX_SIZE_OF_INPUT_REQUEST_PERMITTED = 1048576

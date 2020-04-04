@@ -1,0 +1,4 @@
+package properties
+
+const MAX_SIZE_OF_INPUT_REQUEST_PERMITTED = 1048576
+const CUSTOM_PORT = 5000

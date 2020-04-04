@@ -2,11 +2,10 @@ package controller
 
 import (
 	"blog_backend/dto"
+	"blog_backend/properties"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
-	"strconv"
 )
 
 func SaveUser(w http.ResponseWriter, req *http.Request) {
@@ -18,10 +17,7 @@ func SaveUser(w http.ResponseWriter, req *http.Request) {
 	}
 
 	//Check if the size of body is not greater than allowed ranged
-
-	maxSizeInputRequestPermitted, _ := os.LookupEnv("MAX_SIZE_OF_INPUT_REQUEST_PERMITTED")
-	inputRequestVar, _ := strconv.ParseInt(maxSizeInputRequestPermitted, 10, 64)
-	req.Body = http.MaxBytesReader(w, req.Body, inputRequestVar)
+	req.Body = http.MaxBytesReader(w, req.Body, properties.MAX_SIZE_OF_INPUT_REQUEST_PERMITTED)
 
 	dec := json.NewDecoder(req.Body)
 	dec.DisallowUnknownFields()

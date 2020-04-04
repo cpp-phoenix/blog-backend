@@ -3,6 +3,7 @@ package controller
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -21,5 +22,6 @@ func Routes() {
 	//Autheniticate User
 	myRouter.HandleFunc("/authenticateUser", AuthenticateUser).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":5000", myRouter))
+	port := os.Getenv("PORT")
+	log.Fatal(http.ListenAndServe(":"+port, myRouter))
 }

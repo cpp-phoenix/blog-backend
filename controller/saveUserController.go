@@ -3,6 +3,7 @@ package controller
 import (
 	"blog_backend/dto"
 	"blog_backend/properties"
+	"blog_backend/services"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -28,5 +29,9 @@ func SaveUser(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Fprintf(w, "Person: %+v", user)
+	status := services.SignUp(user)
+	if status == "success" {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "User Updated Successfully!")
+	}
 }

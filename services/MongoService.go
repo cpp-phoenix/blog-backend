@@ -28,14 +28,14 @@ func executeSearch(db string, collection string, searchRequest dto.SearchRequest
 	fmt.Println(bsonSearchRequest)
 	var document bson.M
 	// Create a string using ` string escape ticks
-	query11 := `{ "username" : { $eq: "pappu" } }`
+	query11 := `{"username":{$eq:"pappu"}}`
 	fmt.Println(query11)
 	var bsonMap bson.M
 	err := json.Unmarshal([]byte(query11), &bsonMap)
 	fmt.Println(bsonMap)
 	// Declare an empty BSON Map object
 
-	err = configuration.GetCollection(db, collection).FindOne(configuration.Ctx(), bsonSearchRequest).Decode(&document)
+	err = configuration.GetCollection(db, collection).FindOne(configuration.Ctx(), bsonMap).Decode(&document)
 	if err != nil {
 		fmt.Println("rrrrrrr")
 		log.Fatal(err)

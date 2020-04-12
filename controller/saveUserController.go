@@ -9,16 +9,16 @@ import (
 	"net/http"
 )
 
-func SaveUser(w http.ResponseWriter, req *http.Request) {
+func SaveUser(res http.ResponseWriter, req *http.Request) {
 	//Check for the content-type
 	if req.Header.Get("Content-Type") != "application/json" {
 		msg := "Content type is not application/json"
-		http.Error(w, msg, http.StatusUnsupportedMediaType)
+		http.Error(res, msg, http.StatusUnsupportedMediaType)
 		return
 	}
 
 	//Check if the size of body is not greater than allowed ranged
-	req.Body = http.MaxBytesReader(w, req.Body, properties.MAX_SIZE_OF_INPUT_REQUEST_PERMITTED)
+	req.Body = http.MaxBytesReader(res, req.Body, properties.MAX_SIZE_OF_INPUT_REQUEST_PERMITTED)
 
 	dec := json.NewDecoder(req.Body)
 	dec.DisallowUnknownFields()
@@ -31,10 +31,10 @@ func SaveUser(w http.ResponseWriter, req *http.Request) {
 	}
 	status := services.SignUp(user)
 	if status {
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "User Updated Successfully!!")
+		res.WriteHeader(http.StatusOK)
+		fmt.Fprintf(res, "User Updated Successfully!!")
 	} else {
-		w.WriteHeader(http.StatusUnsupportedMediaType)
-		fmt.Fprintf(w, "Some Error Occurred!. Please check the logs")
+		res.WriteHeader(http.StatusUnsupportedMediaType)
+		fmt.Fprintf(res, "User Already Present!")
 	}
 }

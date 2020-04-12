@@ -4,7 +4,6 @@ import (
 	"blog_backend/dto"
 	"blog_backend/properties"
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -227,12 +226,8 @@ func createDTOToBsonRequest(searchRequest dto.SearchRequest) bson.M {
 		query = returnSeachCriteriaObject(searchRequest.SearchCriteria[0])
 	}
 	var bsonMap bson.M
-	fmt.Println(query)
-
 	foo_marshalled, _ := json.Marshal(query)
-	fmt.Println(string(foo_marshalled))
 	err := json.Unmarshal([]byte(string(foo_marshalled)), &bsonMap)
-	fmt.Println(bsonMap)
 	if err != nil {
 		log.Fatal("json. Unmarshal() ERROR:", err)
 	}

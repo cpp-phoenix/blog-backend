@@ -4,7 +4,6 @@ import (
 	"blog_backend/configuration"
 	"blog_backend/dto"
 	"context"
-	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -24,16 +23,14 @@ func executeSearch(db string, collection string, searchRequest dto.SearchRequest
 
 	//converting search request to Bson request
 	bsonSearchRequest := createDTOToBsonRequest(searchRequest)
-	fmt.Println(bsonSearchRequest)
 	var document bson.M
 	// Create a string using ` string escape ticks
 	// Declare an empty BSON Map object
 
 	err := configuration.GetCollection(db, collection).FindOne(configuration.Ctx(), bsonSearchRequest).Decode(&document)
 	if err != nil {
-		fmt.Println("rrrrrrr")
-		log.Fatal(err)
+
+		return document
 	}
-	fmt.Println(document)
 	return document
 }

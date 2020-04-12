@@ -2,26 +2,23 @@ package controller
 
 import (
 	"blog_backend/dto"
+	"blog_backend/properties"
+	"blog_backend/services"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
-	"strconv"
 )
 
-func SaveUser(w http.ResponseWriter, req *http.Request) {
+func SaveUser(res http.ResponseWriter, req *http.Request) {
 	//Check for the content-type
 	if req.Header.Get("Content-Type") != "application/json" {
 		msg := "Content type is not application/json"
-		http.Error(w, msg, http.StatusUnsupportedMediaType)
+		http.Error(res, msg, http.StatusUnsupportedMediaType)
 		return
 	}
 
 	//Check if the size of body is not greater than allowed ranged
-
-	maxSizeInputRequestPermitted, _ := os.LookupEnv("MAX_SIZE_OF_INPUT_REQUEST_PERMITTED")
-	inputRequestVar, _ := strconv.ParseInt(maxSizeInputRequestPermitted, 10, 64)
-	req.Body = http.MaxBytesReader(w, req.Body, inputRequestVar)
+	req.Body = http.MaxBytesReader(res, req.Body, properties.MAX_SIZE_OF_INPUT_REQUEST_PERMITTED)
 
 	dec := json.NewDecoder(req.Body)
 	dec.DisallowUnknownFields()
@@ -32,5 +29,12 @@ func SaveUser(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Fprintf(w, "Person: %+v", user)
+	status := services.SignUp(user)
+	if status {
+		res.WriteHeader(http.StatusOK)
+		fmt.Fprintf(res, "User Updated Successfully!!")
+	} else {
+		res.WriteHeader(http.StatusUnsupportedMediaType)
+		fmt.Fprintf(res, "User Already Present!")
+	}
 }

@@ -8,5 +8,6 @@ require (
 	github.com/kr/fs v0.1.0 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
+	go.mongodb.org/mongo-driver v1.3.1
 	golang.org/x/tools v0.0.0-20200403190813-44a64ad78b9b // indirect
 )

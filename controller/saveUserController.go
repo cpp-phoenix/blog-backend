@@ -30,8 +30,11 @@ func SaveUser(w http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 	status := services.SignUp(user)
-	if status == "success" {
+	if status {
 		w.WriteHeader(http.StatusOK)
-		fmt.Fprintf(w, "User Updated Successfully!")
+		fmt.Fprintf(w, "User Updated Successfully!!")
+	} else {
+		w.WriteHeader(http.StatusUnsupportedMediaType)
+		fmt.Fprintf(w, "Some Error Occurred!. Please check the logs")
 	}
 }

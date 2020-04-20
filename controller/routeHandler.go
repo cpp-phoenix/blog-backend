@@ -1,11 +1,10 @@
 package controller
 
 import (
-	"blog_backend/properties"
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -24,7 +23,6 @@ func Routes() {
 	//Autheniticate User
 	myRouter.HandleFunc("/authenticateUser", AuthenticateUser).Methods("POST")
 
-	port := strconv.Itoa(properties.CUSTOM_PORT)
-	fmt.Println("Port No.: " + port)
-	log.Fatal(http.ListenAndServe(":"+port, myRouter))
+	fmt.Println("Port No.: " + os.Getenv("PORT"))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), myRouter))
 }

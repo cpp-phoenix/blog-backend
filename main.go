@@ -11,6 +11,7 @@ func main() {
 	fmt.Println("Connecting to mongoDB!!")
 	configuration.ConnectToMongo()
 	fmt.Println("Successfully Connected to mongoDB!!")
+
 	fmt.Println("Starting the server!!")
 	controller.Routes()
 }

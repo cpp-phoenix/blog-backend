@@ -5,7 +5,6 @@ import (
 	"blog_backend/properties"
 	"blog_backend/services"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -31,10 +30,18 @@ func SaveUser(res http.ResponseWriter, req *http.Request) {
 	}
 	status := services.SignUp(user)
 	if status {
-		res.WriteHeader(http.StatusOK)
-		fmt.Fprintf(res, "User Updated Successfully!!")
+		var response dto.UserResponse
+		response.Message = "User Updated Successfully!!"
+		jsonResponse, _ := json.Marshal(response)
+		res.Header().Set("Content-Type", "application/json")
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Write(jsonResponse)
 	} else {
-		res.WriteHeader(http.StatusNotFound)
-		fmt.Fprintf(res, "User Already Present!")
+		var response dto.UserResponse
+		response.Message = "User Already Present!"
+		jsonResponse, _ := json.Marshal(response)
+		res.Header().Set("Content-Type", "application/json")
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Write(jsonResponse)
 	}
 }

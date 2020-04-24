@@ -5,7 +5,6 @@ import (
 	"blog_backend/properties"
 	"blog_backend/services"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -30,10 +29,18 @@ func AuthenticateUser(res http.ResponseWriter, req *http.Request) {
 	}
 	status := services.LogIn(user)
 	if status {
-		res.WriteHeader(http.StatusOK)
-		fmt.Fprintf(res, "User Authentication Successfully!!")
+		var response dto.UserResponse
+		response.Message = "User Authentication Successfully!!"
+		jsonResponse, _ := json.Marshal(response)
+		res.Header().Set("Content-Type", "application/json")
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Write(jsonResponse)
 	} else {
-		res.WriteHeader(http.StatusNotFound)
-		fmt.Fprintf(res, "User Not Present. Please Create Account")
+		var response dto.UserResponse
+		response.Message = "User Not Present. Please Create Account"
+		jsonResponse, _ := json.Marshal(response)
+		res.Header().Set("Content-Type", "application/json")
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Write(jsonResponse)
 	}
 }

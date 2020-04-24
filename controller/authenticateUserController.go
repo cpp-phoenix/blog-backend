@@ -12,7 +12,7 @@ import (
 func AuthenticateUser(res http.ResponseWriter, req *http.Request) {
 	if req.Header.Get("Content-Type") != "application/json" {
 		msg := "Content type is not application/json"
-		http.Error(res, msg, http.StatusUnsupportedMediaType)
+		http.Error(res, msg, http.StatusNotFound)
 		return
 	}
 
@@ -33,7 +33,7 @@ func AuthenticateUser(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(http.StatusOK)
 		fmt.Fprintf(res, "User Authentication Successfully!!")
 	} else {
-		res.WriteHeader(http.StatusUnsupportedMediaType)
+		res.WriteHeader(http.StatusNotFound)
 		fmt.Fprintf(res, "User Not Present. Please Create Account")
 	}
 }

@@ -13,7 +13,7 @@ func SaveUser(res http.ResponseWriter, req *http.Request) {
 	//Check for the content-type
 	if req.Header.Get("Content-Type") != "application/json" {
 		msg := "Content type is not application/json"
-		http.Error(res, msg, http.StatusUnsupportedMediaType)
+		http.Error(res, msg, http.StatusNotFound)
 		return
 	}
 
@@ -34,7 +34,7 @@ func SaveUser(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(http.StatusOK)
 		fmt.Fprintf(res, "User Updated Successfully!!")
 	} else {
-		res.WriteHeader(http.StatusUnsupportedMediaType)
+		res.WriteHeader(http.StatusNotFound)
 		fmt.Fprintf(res, "User Already Present!")
 	}
 }

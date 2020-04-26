@@ -3,11 +3,13 @@ package services
 import (
 	"blog_backend/dto"
 	"blog_backend/properties"
+	b64 "encoding/base64"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 func saveToDb(user dto.UserDetails) bool {
+	user.Password = string(b64.StdEncoding.EncodeToString([]byte(user.Password)))
 	return saveSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, user)
 }
 

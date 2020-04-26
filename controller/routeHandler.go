@@ -25,4 +25,5 @@ func Routes() {
 
 	fmt.Println("Port No.: " + os.Getenv("PORT"))
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), myRouter))
+	//log.Fatal(http.ListenAndServe(":5000", myRouter))
 }

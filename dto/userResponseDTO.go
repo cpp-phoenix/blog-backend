@@ -1,6 +1,6 @@
 package dto
 
 type UserResponse struct {
-	Message string
-	Data    interface{}
+	Status int
+	Data   interface{}
 }

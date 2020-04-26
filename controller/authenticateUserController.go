@@ -28,19 +28,10 @@ func AuthenticateUser(res http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 	status := services.LogIn(user)
-	if status {
-		var response dto.UserResponse
-		response.Message = "User Authentication Successfully!!"
-		jsonResponse, _ := json.Marshal(response)
-		res.Header().Set("Content-Type", "application/json")
-		res.Header().Set("Access-Control-Allow-Origin", "*")
-		res.Write(jsonResponse)
-	} else {
-		var response dto.UserResponse
-		response.Message = "User Not Present. Please Create Account"
-		jsonResponse, _ := json.Marshal(response)
-		res.Header().Set("Content-Type", "application/json")
-		res.Header().Set("Access-Control-Allow-Origin", "*")
-		res.Write(jsonResponse)
-	}
+	var response dto.UserResponse
+	response.Status = status
+	jsonResponse, _ := json.Marshal(response)
+	res.Header().Set("Content-Type", "application/json")
+	res.Header().Set("Access-Control-Allow-Origin", "*")
+	res.Write(jsonResponse)
 }

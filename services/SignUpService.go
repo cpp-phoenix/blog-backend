@@ -33,15 +33,19 @@ func CheckEmailAddress(email string) bool {
 	return false
 }
 
-func SignUp(user dto.UserDetails) bool {
+func SignUp(user dto.UserDetails) int {
 	isUnique := CheckUserName(user.UserName)
 	if !isUnique {
-		return false
+		return 3002
 	}
 	isUnique = CheckEmailAddress(user.Email)
 	if !isUnique {
-		return false
+		return 3004
 	}
 	isSuccessfull := saveToDb(user)
-	return isSuccessfull
+	if isSuccessfull {
+		return 3000
+	} else {
+		return 3005
+	}
 }

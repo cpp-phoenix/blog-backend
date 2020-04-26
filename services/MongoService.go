@@ -29,7 +29,6 @@ func executeSearch(db string, collection string, searchRequest dto.SearchRequest
 
 	err := configuration.GetCollection(db, collection).FindOne(configuration.Ctx(), bsonSearchRequest).Decode(&document)
 	if err != nil {
-
 		return document
 	}
 	return document

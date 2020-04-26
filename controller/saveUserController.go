@@ -29,19 +29,10 @@ func SaveUser(res http.ResponseWriter, req *http.Request) {
 		panic(err)
 	}
 	status := services.SignUp(user)
-	if status {
-		var response dto.UserResponse
-		response.Message = "User Updated Successfully!!"
-		jsonResponse, _ := json.Marshal(response)
-		res.Header().Set("Content-Type", "application/json")
-		res.Header().Set("Access-Control-Allow-Origin", "*")
-		res.Write(jsonResponse)
-	} else {
-		var response dto.UserResponse
-		response.Message = "User Already Present!"
-		jsonResponse, _ := json.Marshal(response)
-		res.Header().Set("Content-Type", "application/json")
-		res.Header().Set("Access-Control-Allow-Origin", "*")
-		res.Write(jsonResponse)
-	}
+	var response dto.UserResponse
+	response.Status = status
+	jsonResponse, _ := json.Marshal(response)
+	res.Header().Set("Content-Type", "application/json")
+	res.Header().Set("Access-Control-Allow-Origin", "*")
+	res.Write(jsonResponse)
 }

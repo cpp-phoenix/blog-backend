@@ -4,6 +4,7 @@ import (
 	"blog_backend/dto"
 	"blog_backend/properties"
 	b64 "encoding/base64"
+	"strings"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -44,6 +45,7 @@ func validateEmail(email string, password string) int {
 
 func LogIn(user dto.UserDetails) int {
 	authentication := 3000
+	user.Email = strings.ToLower(user.Email)
 	if user.UserName != "" {
 		authentication = validateUser(user.UserName, user.Password)
 	}

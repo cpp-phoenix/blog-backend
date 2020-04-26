@@ -4,6 +4,7 @@ import (
 	"blog_backend/dto"
 	"blog_backend/properties"
 	b64 "encoding/base64"
+	"strings"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -36,6 +37,7 @@ func CheckEmailAddress(email string) bool {
 }
 
 func SignUp(user dto.UserDetails) int {
+	user.Email = strings.ToLower(user.Email)
 	isUnique := CheckUserName(user.UserName)
 	if !isUnique {
 		return 3002

@@ -17,7 +17,7 @@ func validatePassword(password string, savedPassword string) bool {
 	return false
 }
 
-func validateUser(userName string, password string) int {
+func ValidateUser(userName string, password string) int {
 	searchRequest := searchRequestBuilderForUserName(userName)
 	var userDetails dto.UserDetails
 	bsonBytes, _ := bson.Marshal(executeSearch(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequest))
@@ -30,7 +30,7 @@ func validateUser(userName string, password string) int {
 	return 3000
 }
 
-func validateEmail(email string, password string) int {
+func ValidateEmail(email string, password string) int {
 	searchRequest := searchRequestBuilderForEmailAddress(email)
 	var userDetails dto.UserDetails
 	bsonBytes, _ := bson.Marshal(executeSearch(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequest))
@@ -47,10 +47,10 @@ func LogIn(user dto.UserDetails) int {
 	authentication := 3000
 	user.Email = strings.ToLower(user.Email)
 	if user.UserName != "" {
-		authentication = validateUser(user.UserName, user.Password)
+		authentication = ValidateUser(user.UserName, user.Password)
 	}
 	if user.Email != "" {
-		authentication = validateEmail(user.Email, user.Password)
+		authentication = ValidateEmail(user.Email, user.Password)
 	}
 	return authentication
 }

@@ -19,6 +19,19 @@ func saveSingleDocument(db string, collection string, document interface{}) bool
 	return true
 }
 
+func updateSingleDocument(db string, collection string, searchRequest dto.SearchRequest, savedocument bson.M) int {
+	//converting search request to Bson request
+	bsonSearchRequest := createDTOToBsonRequest(searchRequest)
+
+	_, err := configuration.GetCollection(db, collection).UpdateOne(context.TODO(), bsonSearchRequest, savedocument)
+
+	if err != nil {
+		log.Fatal(err)
+		return 3012
+	}
+	return 3013
+}
+
 func executeSearch(db string, collection string, searchRequest dto.SearchRequest) bson.M {
 
 	//converting search request to Bson request

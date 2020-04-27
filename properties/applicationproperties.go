@@ -13,3 +13,7 @@ const EQ_FILTER = "$eq"
 const NOT_EQUAL_FILTER = "$ne"
 const NOT_IN_FILTER = "$nin"
 const IN_FILTER = "$in"
+const SENDER_EMAIL = "propagateBlog@gmail.com"
+const SENDER_PASSWORD = "9779292571"
+const HOURS_TO_OTP_EXPIRE = 1
+const FRONT_END_BASE_URL = "http://localhost:3000"

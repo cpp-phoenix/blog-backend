@@ -39,7 +39,7 @@ func TriggerEmail(user dto.UserDetails) int {
 	password := properties.SENDER_PASSWORD
 	// Receiver email address.
 	to := []string{
-		"gurjinders92571@gmail.com",
+		user.Email,
 	}
 	// smtp server configuration.
 	smtpServer := smtpServer{host: "smtp.gmail.com", port: "587"}

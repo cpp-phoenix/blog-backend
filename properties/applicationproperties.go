@@ -7,6 +7,7 @@ const MONGODB_ATLAS_URL = "mongodb+srv://phoenix:9779292571@cluster0-j6rnq.mongo
 const MONGODB_URL = "mongodb://mongodb:27017"
 const BLOG_BACKEND_DATABASE = "blog_backend"
 const USER_DETAILS_COLLECTION = "user_details"
+const POST_DETAILS_COLLECTION = "blog_details"
 const AND_FILTER = "$and"
 const OR_FILTER = "$or"
 const EQ_FILTER = "$eq"

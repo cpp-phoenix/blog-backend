@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func saveSingleDocument(db string, collection string, document interface{}) bool {
@@ -45,4 +46,20 @@ func executeSearch(db string, collection string, searchRequest dto.SearchRequest
 		return document
 	}
 	return document
+}
+
+func executeSearchFetchMultiple(db string, collection string, searchRequest bson.M, sortBy string, page int64, limit int64) []bson.M {
+	findOptions := options.Find()
+	findOptions.SetLimit(limit)
+	findOptions.SetSkip(limit * (page - 1))
+	findOptions.SetSort(bson.D{{sortBy, 1}})
+
+	var documents []bson.M
+
+	cursor, err := configuration.GetCollection(db, collection).Find(configuration.Ctx(), searchRequest, findOptions)
+	err = cursor.All(configuration.Ctx(), &documents)
+	if err != nil {
+		return documents
+	}
+	return documents
 }

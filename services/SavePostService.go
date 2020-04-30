@@ -35,6 +35,7 @@ func randomNumberGenerator() int {
 func savePostToDb(post dto.PostDetails) bool {
 	post.PostId = randomNumberGenerator()
 	post.CreatedTimeStamp = time.Now().Unix()
+	post.UpdatedTimeStamp = time.Now().Unix()
 	return saveSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.POST_DETAILS_COLLECTION, post)
 }
 

@@ -29,6 +29,9 @@ func Routes() {
 	//Save Post
 	myRouter.HandleFunc("/savePost", SavePost).Methods("POST")
 
+	//Fetch Post
+	myRouter.HandleFunc("/fetchPost", FetchPost).Methods("POST")
+
 	fmt.Println("Port No.: " + os.Getenv("PORT"))
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), myRouter))
 	//log.Fatal(http.ListenAndServe(":5000", myRouter))

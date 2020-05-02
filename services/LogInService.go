@@ -65,7 +65,9 @@ func FetchUser(user dto.UserDetails) dto.UserResponse {
 			return response
 		}
 		response.Status = 3000
+		dbDetails.Password = ""
 		response.Data = dbDetails
+		return response
 	}
 	response.Status = authentication
 	return response

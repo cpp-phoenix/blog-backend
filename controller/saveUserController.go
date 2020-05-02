@@ -20,7 +20,6 @@ func SaveUser(res http.ResponseWriter, req *http.Request) {
 	req.Body = http.MaxBytesReader(res, req.Body, properties.MAX_SIZE_OF_INPUT_REQUEST_PERMITTED)
 
 	dec := json.NewDecoder(req.Body)
-	dec.DisallowUnknownFields()
 
 	var user dto.UserDetails
 

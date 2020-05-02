@@ -113,3 +113,11 @@ func UpdateAvatar(request dto.PostDetails) int {
 	status = updateManyDocuments(properties.BLOG_BACKEND_DATABASE, properties.POST_DETAILS_COLLECTION, searchRequestForUserName, createBsonObjectForUserDataRewrite(request.Avatar, "avatar"))
 	return status
 }
+
+func UpdatingFnF(request dto.FnF) int {
+	searchRequestForUserName := searchRequestBuilderForUserName(request.UserName)
+	searchRequestForFollowingUserName := searchRequestBuilderForUserName(request.FollowingUserName)
+	status := updateSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequestForUserName, createBsonObjectForUserDataUpdation(request.FollowingUserName, "following"))
+	status = updateSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequestForFollowingUserName, createBsonObjectForUserDataUpdation(request.FollowingUserName, "followers"))
+	return status
+}

@@ -44,6 +44,8 @@ func Routes() {
 
 	myRouter.HandleFunc("/searchUsername", SearchUserName).Methods("POST")
 
+	myRouter.HandleFunc("/updateFollowing", UpdateFollowing).Methods("POST")
+
 	fmt.Println("Port No.: " + os.Getenv("PORT"))
 
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), myRouter))

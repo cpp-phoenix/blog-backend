@@ -51,3 +51,19 @@ func searchRequestBuilderForPostId(postId int) dto.SearchRequest {
 	searchRequest.SearchCriteria = append(searchRequest.SearchCriteria, searchCriteria)
 	return searchRequest
 }
+
+func searchRequestBuilderForPostIds(postIds []int) dto.SearchRequest {
+	var longValueFilters dto.IntValueFilters
+	longValueFilters.FieldName = "postid"
+	longValueFilters.Values = postIds
+
+	var mustValueFilters dto.MustValueFilters
+	mustValueFilters.IntValueFilters = append(mustValueFilters.IntValueFilters, longValueFilters)
+
+	var searchCriteria dto.SearchCriteria
+	searchCriteria.MustValueFilters = append(searchCriteria.MustValueFilters, mustValueFilters)
+
+	var searchRequest dto.SearchRequest
+	searchRequest.SearchCriteria = append(searchRequest.SearchCriteria, searchCriteria)
+	return searchRequest
+}

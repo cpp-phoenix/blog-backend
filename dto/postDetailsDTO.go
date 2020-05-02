@@ -5,6 +5,7 @@ type PostDetails struct {
 	Description      string
 	PostId           int
 	UserName         string
+	Avatar           int
 	CreatedTimeStamp int64
 	UpdatedTimeStamp int64
 }

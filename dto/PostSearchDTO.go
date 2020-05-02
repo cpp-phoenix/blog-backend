@@ -1,6 +1,7 @@
 package dto
 
 type PostSearch struct {
-	Size int
-	Page int
+	PostIds []int
+	Size    int
+	Page    int
 }

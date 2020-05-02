@@ -44,7 +44,7 @@ func ValidateEmail(email string, password string) int {
 }
 
 func LogIn(user dto.UserDetails) int {
-	authentication := 3000
+	authentication := 3016
 	user.Email = strings.ToLower(user.Email)
 	if user.UserName != "" {
 		authentication = ValidateUser(user.UserName, user.Password)
@@ -53,4 +53,28 @@ func LogIn(user dto.UserDetails) int {
 		authentication = ValidateEmail(user.Email, user.Password)
 	}
 	return authentication
+}
+
+func FetchUser(user dto.UserDetails) dto.UserResponse {
+	authentication := 3016
+	var response dto.UserResponse
+	if user.UserName != "" {
+		dbDetails := FetchUserFromDB(user.UserName)
+		if dbDetails.UserName == "" {
+			response.Status = 3001
+			return response
+		}
+		response.Status = 3000
+		response.Data = dbDetails
+	}
+	response.Status = authentication
+	return response
+}
+
+func FetchUserFromDB(userName string) dto.UserDetails {
+	searchRequest := searchRequestBuilderForUserName(userName)
+	var userDetails dto.UserDetails
+	bsonBytes, _ := bson.Marshal(executeSearch(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequest))
+	bson.Unmarshal(bsonBytes, &userDetails)
+	return userDetails
 }

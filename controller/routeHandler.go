@@ -38,9 +38,13 @@ func Routes() {
 
 	myRouter.HandleFunc("/saveLikesToDB", SaveLikes).Methods("POST")
 
+	myRouter.HandleFunc("/deleteLikesFromDB", DeleteLikes).Methods("POST")
+
 	myRouter.HandleFunc("/updateAvatar", UpdateAvatar).Methods("POST")
 
 	myRouter.HandleFunc("/saveBookmarksToDB", SaveBookmark).Methods("POST")
+
+	myRouter.HandleFunc("/deleteBookmarksFromDB", DeleteBookmark).Methods("POST")
 
 	myRouter.HandleFunc("/searchUsername", SearchUserName).Methods("POST")
 

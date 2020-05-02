@@ -60,12 +60,7 @@ func FetchUser(user dto.UserDetails) dto.UserResponse {
 	var response dto.UserResponse
 	if user.UserName != "" {
 		dbDetails := FetchUserFromDB(user.UserName)
-		if dbDetails.UserName == "" {
-			response.Status = 3001
-			return response
-		}
 		response.Status = 3000
-		dbDetails.Password = ""
 		response.Data = dbDetails
 		return response
 	}
@@ -73,10 +68,7 @@ func FetchUser(user dto.UserDetails) dto.UserResponse {
 	return response
 }
 
-func FetchUserFromDB(userName string) dto.UserDetails {
+func FetchUserFromDB(userName string) bson.M {
 	searchRequest := searchRequestBuilderForUserName(userName)
-	var userDetails dto.UserDetails
-	bsonBytes, _ := bson.Marshal(executeSearch(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequest))
-	bson.Unmarshal(bsonBytes, &userDetails)
-	return userDetails
+	return executeSearch(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequest)
 }

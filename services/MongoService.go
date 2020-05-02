@@ -65,7 +65,7 @@ func executeSearchFetchMultiple(db string, collection string, searchRequest bson
 	findOptions := options.Find()
 	findOptions.SetLimit(limit)
 	findOptions.SetSkip(limit * (page - 1))
-	findOptions.SetSort(bson.D{{sortBy, -1}})
+	findOptions.SetSort(bson.D{{sortBy, 1}})
 
 	var documents []bson.M
 

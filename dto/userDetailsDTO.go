@@ -7,6 +7,11 @@ type UserDetails struct {
 	Password             string
 	Otp                  int
 	Avatar               int
+	CreatedPosts         []int
+	LikesPosts           []int
+	SavedPosts           []int
+	Followers            []string
+	Following            []string
 	ResetRequestTimstamp int64
 	CreatedTimestamp     int64
 }

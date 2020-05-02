@@ -7,7 +7,6 @@ type UserDetails struct {
 	Password             string
 	Otp                  int
 	Avatar               int
-	CreatedPosts         []int
 	ResetRequestTimstamp int64
 	CreatedTimestamp     int64
 }

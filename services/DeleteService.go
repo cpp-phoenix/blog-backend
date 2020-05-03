@@ -38,3 +38,11 @@ func DeleteSave(post dto.PostUpdation, userkey string) int {
 	status := updateSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequestForUserName, createBsonObjectForUserDataDeletion(post.PostId, userkey))
 	return status
 }
+
+func UnFollow(request dto.FnF) int {
+	searchRequestForUserName := searchRequestBuilderForUserName(request.UserName)
+	searchRequestForFollowingUserName := searchRequestBuilderForUserName(request.FollowingUserName)
+	status := updateSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequestForUserName, createBsonObjectForUserDataDeletion(request.FollowingUserName, "following"))
+	status = updateSingleDocument(properties.BLOG_BACKEND_DATABASE, properties.USER_DETAILS_COLLECTION, searchRequestForFollowingUserName, createBsonObjectForUserDataDeletion(request.UserName, "followers"))
+	return status
+}

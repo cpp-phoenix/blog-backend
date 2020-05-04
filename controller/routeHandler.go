@@ -50,10 +50,10 @@ func Routes() {
 
 	myRouter.HandleFunc("/updateFollowing", UpdateFollowing).Methods("POST")
 
-	myRouter.HandleFunc("/unFollow",UnFollow).Methods("POST")
+	myRouter.HandleFunc("/unFollow", UnFollow).Methods("POST")
 
 	fmt.Println("Port No.: " + os.Getenv("PORT"))
 
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), myRouter))
-	//log.Fatal(http.ListenAndServe(":5000", myRouter))
+	//log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), myRouter))
+	log.Fatal(http.ListenAndServe(":5000", myRouter))
 }

@@ -9,7 +9,7 @@ import (
 
 func FetchPost(postSearch dto.PostSearch) dto.UserResponse {
 	var searchRequest bson.M
-	bsonResponse := executeSearchFetchMultiple(properties.BLOG_BACKEND_DATABASE, properties.POST_DETAILS_COLLECTION, searchRequest, "UpdatedTimeStamp", int64(postSearch.Page), int64(postSearch.Size))
+	bsonResponse := executeSearchFetchMultiple(properties.BLOG_BACKEND_DATABASE, properties.POST_DETAILS_COLLECTION, searchRequest, "updatedtimestamp", int64(postSearch.Page), int64(postSearch.Size))
 	var response dto.UserResponse
 	response.Status = 3000
 	response.Data = bsonResponse
@@ -19,7 +19,7 @@ func FetchPost(postSearch dto.PostSearch) dto.UserResponse {
 func FetchPostByPostIds(postSearchRequest dto.PostSearch) dto.UserResponse {
 	var searchRequest = searchRequestBuilderForPostIds(postSearchRequest.PostIds)
 	bsonSearchRequest := createDTOToBsonRequest(searchRequest)
-	bsonResponse := executeSearchFetchMultiple(properties.BLOG_BACKEND_DATABASE, properties.POST_DETAILS_COLLECTION, bsonSearchRequest, "UpdatedTimeStamp", int64(postSearchRequest.Page), int64(postSearchRequest.Size))
+	bsonResponse := executeSearchFetchMultiple(properties.BLOG_BACKEND_DATABASE, properties.POST_DETAILS_COLLECTION, bsonSearchRequest, "updatedtimestamp", int64(postSearchRequest.Page), int64(postSearchRequest.Size))
 	var response dto.UserResponse
 	response.Status = 3000
 	response.Data = bsonResponse
